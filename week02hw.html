@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> 텀블러 구매page </title>
+
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Nanum+Gothic+Coding&display=swap"
+              rel="stylesheet">
+
+
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+
+        <style>
+
+
+            * {
+                font-family: 'Cute Font', cursive;
+            }
+
+            .orderbutton {
+                color: antiquewhite;
+                background-color: darkgray;
+                border-radius: 3px;
+                font-size: 30px;
+                margin: 0px 200px;
+
+            }
+
+            .newbadge {
+                font-size: 15px;
+                color: antiquewhite;
+                background-color: darkgray;
+                border-radius: 3px;
+                width: 10px;
+                height: 10px;
+            }
+
+            .shopimage {
+                width: 200px;
+                length: 200px;
+            }
+
+            .wrap {
+                width: 500px;
+                height: 700px;
+                margin: 50px auto auto auto;
+
+            }
+
+            .my-title {
+                margin: 0px 120px;
+            }
+
+            .price-text {
+                font-size: 25px;
+            }
+
+        </style>
+
+        <script>
+
+            function pushorder() {
+
+                let inputNameValue = $('#input-nameValue').val();
+                let inputQtyValue = $('#input-qtyValue').val();
+                let inputAddValue = $('#input-addValue').val();
+                let inputPnValue = $('#input-pnValue').val();
+                if (inputNameValue === '') {
+                    alert('이름을 입력해주세요');
+                    return;
+                } else if (inputQtyValue === '') {
+                    alert('수량을 입력해주세요');
+                    return;
+                } else if (inputAddValue === '') {
+                    alert('주소를 입력해주세요');
+                    return;
+                } else if (inputPnValue === '') {
+                    alert('번호를 입력해주세요');
+                    return;
+                } else {
+
+                    let temp_html = `<tr>
+                                        <td>${inputNameValue}</td>
+                                        <td>${inputQtyValue}</td>
+                                        <td>${inputAddValue}</td>
+                                        <td>${inputPnValue}</td>
+                                        </tr>`
+
+                    $('#data').append(temp_html);
+
+                    $('#input-nameValue').val('');
+                    $('#input-qtyValue').val('');
+                    $('#input-addValue').val('');
+                    $('#input-pnValue').val('');
+
+                    alert('주문이 완료되었습니당');
+
+
+                }
+            }
+
+            $(document).ready(function () {
+                // alert('다 로딩됐다!')
+
+
+                {
+                    $.ajax({
+                        type: "GET",
+                        url: "https://api.manana.kr/exchange/rate.json",
+                        data: {},
+                        success: function (response) {
+                            let element = response[1]["rate"];
+                            $('#ex-info').text(element);
+                        }
+                    })
+
+                }
+            })
+
+
+        </script>
+
+    </head>
+    <body>
+        <div class="wrap">
+
+
+            <div class="my-title">
+                <h1>텀블러 구경하세요</h1>
+                <img class="shopimage" src="https://view01.wemep.co.kr/wmp-product/2/391/113323912/pm_rnchmqbbomr9.jpg">
+
+                <h2>스벅 텀블러 <span class="price-text">31,000원</span> <span class="newbadge">New</span></h2>
+                <h7> 텀블러에 마시면 얼음이 안녹고 눈물 안생겨서 핵편함!
+                    <p>종이컵말고 텀블러에 마셔요~</p></h7>
+            </div>
+
+            <h5><span style="color: brown">환율:</span> <span id="ex-info" style="color: brown"> </span></h5>
+
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">주문자 성함</span>
+                </div>
+                <input id="input-nameValue" type="text" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-sm">
+            </div>
+
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="input-qtyValue">수량</label>
+                </div>
+                <select class="custom-select" id="input-qtyValue">
+                    <option selected value="">Choose...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+
+
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">주소</span>
+                </div>
+                <input id="input-addValue" type="text" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-sm">
+            </div>
+
+
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">전화번호</span>
+                </div>
+                <input id="input-pnValue" type="text" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-sm">
+            </div>
+
+
+            <a onclick="pushorder()" class="orderbutton" href="#" role="button">주문하기</a>
+
+
+            <div class="orders">
+                <table id="data" class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">이름</th>
+                        <th scope="col">수량</th>
+                        <th scope="col">주소</th>
+                        <th scope="col">전화번호</th>
+                    </tr>
+                    </thead>
+                    <tbody id="orders-box">
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+    </body>
+</html>
